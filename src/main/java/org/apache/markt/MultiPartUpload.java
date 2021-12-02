@@ -47,12 +47,15 @@ public class MultiPartUpload extends HttpServlet {
         Collection<Part> parts = req.getParts();
         for (Part p : parts) {
             partCount++;
-            try (InputStream is = p.getInputStream()) {
+            try  {
+                InputStream is = p.getInputStream();
                 int read = is.read(buf);
                 while (read > 0) {
                     byteCount += read;
                     read = is.read(buf);
                 }
+            } catch (IOException ioe) {
+
             }
         }
 
